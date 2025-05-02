@@ -78,6 +78,7 @@
     }
 
     .social a {
+      position: relative;
       color: white;
       padding: 10px 16px;
       border-radius: 8px;
@@ -103,10 +104,50 @@
     }
 
     .facebook { background: #1877f2; }
-    .youtube  { background: #FF0000; }
+    .youtube  { background: #ff0000; }
     .tiktok   { background: #000000; }
     .canva    { background: #00c4cc; }
     .bitly    { background: #ee6123; }
+    .email    { background: #d44638; }
+    .zalo     { background: #0180ef; }
+
+    /* Tooltip custom */
+    .social a::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-size: 13px;
+      z-index: 10;
+    }
+
+    .social a::before {
+      content: '';
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .social a:hover::after,
+    .social a:hover::before {
+      opacity: 1;
+    }
 
     /* Responsive */
     @media (max-width: 600px) {
@@ -149,29 +190,39 @@
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
     
     <div class="social">
-      <a href="https://facebook.com/chaunhatdang.nd" target="_blank" class="facebook">
+      <a href="https://facebook.com/chaunhatdang.nd" target="_blank" class="facebook" data-tooltip="Mở Facebook của Nhật Đăng">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
         Facebook
       </a>
 
-      <a href="https://www.youtube.com/@NhatDang_15" target="_blank" class="youtube">
+      <a href="https://www.youtube.com/@NhatDang_15" target="_blank" class="youtube" data-tooltip="Xem kênh YouTube của Nhật Đăng">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
         YouTube
       </a>
 
-      <a href="https://www.tiktok.com/@nhtng206" target="_blank" class="tiktok">
+      <a href="https://www.tiktok.com/@nhtng206" target="_blank" class="tiktok" data-tooltip="Xem TikTok của Nhật Đăng">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
         TikTok
       </a>
 
-      <a href="https://nhat-dang.my.canva.site" target="_blank" class="canva">
+      <a href="https://nhat-dang.my.canva.site" target="_blank" class="canva" data-tooltip="Xem portfolio trên Canva">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg" alt="Canva" />
         Canva
       </a>
 
-      <a href="https://bit.ly/m/cnd5110" target="_blank" class="bitly">
+      <a href="https://bit.ly/m/cnd5110" target="_blank" class="bitly" data-tooltip="Tổng hợp liên kết quan trọng">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bitly.svg" alt="Bitly" />
         Bitly
+      </a>
+
+      <a href="mailto:lienhe.nhatdang@gmail.com" class="email" data-tooltip="Gửi email đến Nhật Đăng">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.svg" alt="Email" />
+        Email
+      </a>
+
+      <a href="https://zalo.me/0379065349" target="_blank" class="zalo" data-tooltip="Liên hệ qua Zalo">
+        <img src="https://upload.wikimedia.org/wikipedia/vi/thumb/9/98/Zalo_icon.png/240px-Zalo_icon.png" alt="Zalo" />
+        Zalo
       </a>
     </div>
   </div>
