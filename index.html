@@ -20,9 +20,10 @@
       background: white;
       padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 500px;
+      width: 100%;
     }
     .avatar {
       width: 150px;
@@ -35,10 +36,12 @@
     h1 {
       margin-bottom: 10px;
       color: #0066cc;
+      font-size: 24px;
     }
     p {
       font-size: 18px;
       color: #555;
+      margin-bottom: 20px;
     }
     .button {
       margin-top: 25px;
@@ -58,16 +61,26 @@
     }
     .social a {
       color: white;
-      background: #1877f2;
       padding: 10px 20px;
       border-radius: 8px;
       text-decoration: none;
       display: inline-block;
       font-weight: bold;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    .social a img {
+      vertical-align: middle;
+      margin-right: 10px;
     }
     .social a:hover {
-      background: #0d65d9;
+      opacity: 0.8;
     }
+    .social a.facebook { background: #1877f2; }
+    .social a.youtube { background: #FF0000; }
+    .social a.tiktok { background: #000000; }
+    .social a.canva { background: #00c4cc; }
+    .social a.bitly { background: #ee6123; }
   </style>
 </head>
 <body>
@@ -76,34 +89,32 @@
     <h1>Xin chào, mình là Nhật Đăng</h1>
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
     
-  <img src="avatar.png" alt="Avatar" class="avatar" />
-  <div class="name">Nhật Đăng</div>
+    <div class="social">
+      <a href="https://facebook.com/chaunhatdang.nd" target="_blank" class="facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" width="20" />
+        Facebook
+      </a>
 
-  <div class="social">
-    <a href="https://facebook.com/chaunhatdang.nd" target="_blank" style="background: #1877f2;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
-      Facebook
-    </a>
+      <a href="https://www.youtube.com/@NhatDang_15" target="_blank" class="youtube">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" width="20" />
+        YouTube
+      </a>
 
-    <a href="https://www.youtube.com/@NhatDang_15" target="_blank" style="background: #FF0000;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
-      YouTube
-    </a>
+      <a href="https://www.tiktok.com/@nhtng206" target="_blank" class="tiktok">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" width="20" />
+        TikTok
+      </a>
 
-    <a href="https://www.tiktok.com/@nhtng206" target="_blank" style="background: #000000;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
-      TikTok
-    </a>
+      <a href="https://nhat-dang.my.canva.site" target="_blank" class="canva">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg" alt="Canva" width="20" />
+        Canva
+      </a>
 
-    <a href="https://nhat-dang.my.canva.site" target="_blank" style="background: #00c4cc;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg" alt="Canva" />
-      Canva
-    </a>
-
-    <a href="https://bit.ly/m/cnd5110" target="_blank" style="background: #ee6123;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bitly.svg" alt="Bitly" />
-      Bitly
-    </a>
+      <a href="https://bit.ly/m/cnd5110" target="_blank" class="bitly">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bitly.svg" alt="Bitly" width="20" />
+        Bitly
+      </a>
+    </div>
   </div>
 </body>
 </html>
