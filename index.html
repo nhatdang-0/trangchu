@@ -16,6 +16,7 @@
       justify-content: center;
       min-height: 100vh;
     }
+
     .card {
       background: white;
       padding: 40px;
@@ -24,7 +25,20 @@
       text-align: center;
       max-width: 500px;
       width: 100%;
+
+      /* Hiệu ứng fade-in khi load */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
     }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .avatar {
       width: 150px;
       height: 150px;
@@ -32,20 +46,30 @@
       object-fit: cover;
       margin-bottom: 20px;
       border: 4px solid #0066cc;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
     h1 {
       margin-bottom: 10px;
       color: #0066cc;
       font-size: 24px;
     }
+
     p {
       font-size: 18px;
       color: #555;
       margin-bottom: 20px;
     }
+
     .social {
       margin-top: 20px;
     }
+
     .social a {
       color: white;
       padding: 10px 20px;
@@ -54,23 +78,27 @@
       display: inline-block;
       font-weight: bold;
       margin: 5px;
-      transition: background 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .social a img {
       vertical-align: middle;
       margin-right: 10px;
       width: 20px;
       height: 20px;
-      filter: brightness(0) invert(1); /* Chuyển màu logo thành trắng */
+      filter: brightness(0) invert(1); /* Chuyển logo thành trắng */
     }
+
     .social a:hover {
-      opacity: 0.8;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
+
     .social a.facebook { background: #1877f2; }
-    .social a.youtube { background: #FF0000; }
-    .social a.tiktok { background: #000000; }
-    .social a.canva { background: #00c4cc; }
-    .social a.bitly { background: #ee6123; }
+    .social a.youtube  { background: #FF0000; }
+    .social a.tiktok   { background: #000000; }
+    .social a.canva    { background: #00c4cc; }
+    .social a.bitly    { background: #ee6123; }
   </style>
 </head>
 <body>
