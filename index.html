@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhật Đăng - Trang Chủ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     * {
       box-sizing: border-box;
@@ -80,7 +81,7 @@
     .social a {
       position: relative;
       color: white;
-      padding: 12px 20px; /* Điều chỉnh chiều dài của các liên kết */
+      padding: 12px 20px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
@@ -88,14 +89,14 @@
       align-items: center;
       justify-content: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      min-width: 140px; /* Đảm bảo chiều dài đồng nhất */
-      height: 50px; /* Chiều cao đồng nhất */
+      min-width: 140px;
+      height: 50px;
     }
 
     .social a img {
       margin-right: 8px;
-      width: 24px; /* Cập nhật kích thước logo */
-      height: 24px; /* Cập nhật kích thước logo */
+      width: 24px;
+      height: 24px;
       filter: brightness(0) invert(1);
     }
 
@@ -123,73 +124,10 @@
       color: #fff;
       padding: 6px 10px;
       border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      font-size: 13px;
-      z-index: 10;
-    }
-
-    .social a::before {
-      content: '';
-      position: absolute;
-      bottom: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 6px;
-      border-style: solid;
-      border-color: #333 transparent transparent transparent;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 10;
-    }
-
-    .social a:hover::after,
-    .social a:hover::before {
-      opacity: 1;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .card {
-        padding: 25px;
-      }
-
-      .avatar {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 15px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-
-      p {
-        font-size: 16px;
-      }
-
-      .social a {
-        padding: 10px 14px; /* Điều chỉnh kích thước padding khi màn hình nhỏ */
-        font-size: 14px;
-        min-width: 120px; /* Điều chỉnh chiều dài cho màn hình nhỏ */
-      }
-
-      .social a img {
-        width: 20px;
-        height: 20px;
-        margin-right: 6px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <img class="avatar" src="avatar.png" alt="Ảnh đại diện">
+      white-space: nowrap;avatar.png" alt="Ảnh đại diện">
     <h1>Xin chào, mình là Nhật Đăng</h1>
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
-    
+
     <div class="social">
       <a href="https://facebook.com/chaunhatdang.nd" target="_blank" class="facebook" data-tooltip="Trang Facebook của Nhật Đăng">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
@@ -227,5 +165,50 @@
       </a>
     </div>
   </div>
+
+  <!-- Thanh điều khiển nhạc -->
+  <div style="position: fixed; top: 20px; left: 20px; display: flex; align-items: center; gap: 10px; z-index: 1000;">
+    <button id="toggleMusic" title="Bật / Tắt nhạc" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0066cc;">
+      <i class="fas fa-play"></i>
+    </button>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" title="Âm lượng" />
+  </div>
+
+  <!-- Nút chia sẻ -->
+  <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <button onclick="navigator.share ? navigator.share({ title: document.title, url: location.href }) : alert('Trình duyệt không hỗ trợ chia sẻ');" 
+      style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0066cc;" title="Chia sẻ trang">
+      <i class="fas fa-share-alt"></i>
+    </button>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="bgMusic" loop>
+    <source src="https://nhatdang-0.github.io/trangchu/nhacnen.mp3" type="audio/mpeg">
+    Trình duyệt không hỗ trợ phát nhạc.
+  </audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    const toggleBtn = document.getElementById("toggleMusic");
+    const icon = toggleBtn.querySelector("i");
+    const volume = document.getElementById("volumeControl");
+
+    toggleBtn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play().catch(() => alert("Trình duyệt chặn phát tự động. Hãy thao tác lại."));
+        icon.classList.remove("fa-play");
+        icon.classList.add("fa-pause");
+      } else {
+        music.pause();
+        icon.classList.remove("fa-pause");
+        icon.classList.add("fa-play");
+      }
+    });
+
+    volume.addEventListener("input", () => {
+      music.volume = volume.value;
+    });
+  </script>
 </body>
 </html>
