@@ -124,7 +124,70 @@
       color: #fff;
       padding: 6px 10px;
       border-radius: 6px;
-      white-space: nowrap;avatar.png" alt="Ảnh đại diện">
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      font-size: 13px;
+      z-index: 10;
+    }
+
+    .social a::before {
+      content: '';
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .social a:hover::after,
+    .social a:hover::before {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .card {
+        padding: 25px;
+      }
+
+      .avatar {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .social a {
+        padding: 10px 14px;
+        font-size: 14px;
+        min-width: 120px;
+      }
+
+      .social a img {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img class="avatar" src="avatar.png" alt="Ảnh đại diện">
     <h1>Xin chào, mình là Nhật Đăng</h1>
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
 
