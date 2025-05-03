@@ -183,6 +183,25 @@
         margin-right: 6px;
       }
     }
+
+    /* Thông báo nhạc chưa bật */
+    .music-alert {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ffcc00;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .music-alert.show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -251,15 +270,21 @@
     Trình duyệt không hỗ trợ phát nhạc.
   </audio>
 
+  <div class="music-alert" id="musicAlert">Lỗi: Trình duyệt đã chặn phát nhạc tự động. Hãy nhấn nút phát để bật nhạc.</div>
+
   <script>
     const music = document.getElementById("bgMusic");
     const toggleBtn = document.getElementById("toggleMusic");
     const icon = toggleBtn.querySelector("i");
     const volume = document.getElementById("volumeControl");
+    const musicAlert = document.getElementById("musicAlert");
 
     toggleBtn.addEventListener("click", () => {
       if (music.paused) {
-        music.play().catch(() => alert("Trình duyệt chặn phát tự động. Hãy thao tác lại."));
+        music.play().catch(() => {
+          musicAlert.classList.add("show");
+          setTimeout(() => musicAlert.classList.remove("show"), 5000);
+        });
         icon.classList.remove("fa-play");
         icon.classList.add("fa-pause");
       } else {
