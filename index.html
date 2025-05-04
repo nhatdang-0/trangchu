@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhật Đăng - Trang Chủ</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -31,8 +29,6 @@
       text-align: center;
       max-width: 500px;
       width: 100%;
-      opacity: 0;
-      transform: translateY(30px);
       animation: fadeInUp 0.8s ease forwards;
     }
 
@@ -40,6 +36,10 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
     }
 
@@ -58,62 +58,50 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    h1 {
-      margin-bottom: 10px;
-      color: #0066cc;
-      font-size: 24px;
-    }
+    h1 { margin-bottom: 10px; color: #0066cc; font-size: 24px; }
 
-    p {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-    }
+    p { font-size: 18px; color: #555; margin-bottom: 20px; }
 
     .social {
       margin-top: 20px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .social a {
-      position: relative;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #333;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-decoration: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      min-width: 140px;
-      height: 50px;
+      position: relative;
+    }
+
+    .social a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
 
     .social a img {
-      margin-right: 8px;
       width: 24px;
       height: 24px;
       filter: brightness(0) invert(1);
     }
 
-    .social a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    }
-
     .facebook { background: #1877f2; }
-    .youtube  { background: #FF0000; }
+    .youtube  { background: #ff0000; }
     .tiktok   { background: #000000; }
     .canva    { background: #00c4cc; }
     .bitly    { background: #ee6123; }
     .email    { background: #d44638; }
     .zalo     { background: #0180ef; }
 
-    /* Tooltip custom */
     .social a::after {
       content: attr(data-tooltip);
       position: absolute;
@@ -124,11 +112,11 @@
       color: #fff;
       padding: 6px 10px;
       border-radius: 6px;
-      white-space: nowrap;
+      font-size: 13px;
       opacity: 0;
+      white-space: nowrap;
       pointer-events: none;
       transition: opacity 0.3s ease, transform 0.3s ease;
-      font-size: 13px;
       z-index: 10;
     }
 
@@ -151,40 +139,6 @@
       opacity: 1;
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
-      .card {
-        padding: 25px;
-      }
-
-      .avatar {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 15px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-
-      p {
-        font-size: 16px;
-      }
-
-      .social a {
-        padding: 10px 14px;
-        font-size: 14px;
-        min-width: 120px;
-      }
-
-      .social a img {
-        width: 20px;
-        height: 20px;
-        margin-right: 6px;
-      }
-    }
-
-    /* Thông báo nhạc chưa bật */
     .music-alert {
       display: none;
       position: fixed;
@@ -211,44 +165,30 @@
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
 
     <div class="social">
-      <a href="https://facebook.com/chaunhatdang.nd" target="_blank" class="facebook" data-tooltip="Trang Facebook của Nhật Đăng">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
-        Facebook
+      <a href="https://facebook.com/chaunhatdang.nd" class="facebook" target="_blank" data-tooltip="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
       </a>
-
-      <a href="https://www.youtube.com/@NhatDang_15" target="_blank" class="youtube" data-tooltip="Kênh YouTube của Nhật Đăng">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
-        YouTube
+      <a href="https://www.youtube.com/@NhatDang_15" class="youtube" target="_blank" data-tooltip="YouTube">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
       </a>
-
-      <a href="https://www.tiktok.com/@nhtng206" target="_blank" class="tiktok" data-tooltip="Kênh TikTok của Nhật Đăng">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" />
-        TikTok
+      <a href="https://www.tiktok.com/@nhtng206" class="tiktok" target="_blank" data-tooltip="TikTok">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok">
       </a>
-
-      <a href="https://nhat-dang.my.canva.site" target="_blank" class="canva" data-tooltip="Trang web của Nhật Đăng trên Canva">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg" alt="Canva" />
-        Canva
+      <a href="https://nhat-dang.my.canva.site" class="canva" target="_blank" data-tooltip="Canva">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/canva.svg" alt="Canva">
       </a>
-
-      <a href="https://bit.ly/m/cnd5110" target="_blank" class="bitly" data-tooltip="Trang web của Nhật Đăng trên Bitly">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bitly.svg" alt="Bitly" />
-        Bitly
+      <a href="https://bit.ly/m/cnd5110" class="bitly" target="_blank" data-tooltip="Bitly">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/bitly.svg" alt="Bitly">
       </a>
-
-      <a href="mailto:lienhe.nhatdang@gmail.com" class="email" data-tooltip="Gửi email đến Nhật Đăng">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Email" />
-        Email
+      <a href="mailto:lienhe.nhatdang@gmail.com" class="email" data-tooltip="Email">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Email">
       </a>
-
-      <a href="https://zalo.me/0379065349" target="_blank" class="zalo" data-tooltip="Liên hệ Nhật Đăng qua Zalo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo" />
-        Zalo
+      <a href="https://zalo.me/0379065349" class="zalo" target="_blank" data-tooltip="Zalo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo">
       </a>
     </div>
   </div>
 
-  <!-- Thanh điều khiển nhạc -->
   <div style="position: fixed; top: 20px; left: 20px; display: flex; align-items: center; gap: 10px; z-index: 1000;">
     <button id="toggleMusic" title="Bật / Tắt nhạc" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0066cc;">
       <i class="fas fa-play"></i>
@@ -256,7 +196,6 @@
     <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5" title="Âm lượng" />
   </div>
 
-  <!-- Nút chia sẻ -->
   <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
     <button onclick="navigator.share ? navigator.share({ title: document.title, url: location.href }) : alert('Trình duyệt không hỗ trợ chia sẻ');" 
       style="background: none; border: none; font-size: 24px; cursor: pointer; color: #0066cc;" title="Chia sẻ trang">
@@ -264,7 +203,6 @@
     </button>
   </div>
 
-  <!-- Nhạc nền -->
   <audio id="bgMusic" loop>
     <source src="https://nhatdang-0.github.io/trangchu/nhacnen.mp3" type="audio/mpeg">
     Trình duyệt không hỗ trợ phát nhạc.
