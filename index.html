@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhật Đăng - Trang Chủ</title>
+  <script src="https://unpkg.com/feather-icons"></script>
   <style>
     body {
       margin: 0;
@@ -16,6 +17,66 @@
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
+    }
+
+    .controls {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .icon-btn {
+      cursor: pointer;
+      background: #0066cc;
+      color: white;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s ease, transform 0.3s ease;
+      border: none;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-btn:hover {
+      background: #004999;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    #volumeControl {
+      width: 100px;
+      cursor: pointer;
+    }
+
+    /* Nút chia sẻ */
+    .share-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: #0066cc;
+      color: white;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: none; /* Bỏ viền */
+    }
+
+    .share-btn:hover {
+      background: #004999;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
     .card {
@@ -64,7 +125,6 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      border: 1px solid black;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -87,7 +147,6 @@
     .email    { background: #d44638; }
     .zalo     { background: #0180ef; }
 
-    /* Tooltip nhỏ khi hover */
     .social a::after {
       content: attr(data-tooltip);
       position: absolute;
@@ -106,9 +165,46 @@
     .social a:hover::after {
       opacity: 1;
     }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      animation: fadeInOut 5s ease;
+      z-index: 1001;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    }
   </style>
 </head>
 <body>
+  <!-- Nhạc + âm lượng -->
+  <div class="controls">
+    <button class="icon-btn" id="musicToggleBtn" title="Bật/Tắt nhạc">
+      <i data-feather="play"></i>
+    </button>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" title="Âm lượng" />
+  </div>
+
+  <!-- Nút chia sẻ ở góc phải -->
+  <button class="share-btn" onclick="shareWebsite()" title="Chia sẻ">
+    <i data-feather="share-2"></i>
+  </button>
+
+  <!-- Thẻ nhạc -->
+  <audio id="backgroundMusic" src="https://nhatdang-0.github.io/trangchu/nhacnen.mp3" autoplay loop></audio>
+
   <div class="card">
     <img class="avatar" src="https://nhatdang-0.github.io/trangchu/avatar.png" alt="Ảnh đại diện">
     <h1>Xin chào, mình là Nhật Đăng</h1>
@@ -138,5 +234,38 @@
       </a>
     </div>
   </div>
+
+  <!-- Toast -->
+  <div class="toast">🎵 Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm!</div>
+
+  <script>
+    const music = document.getElementById("backgroundMusic");
+    const volumeControl = document.getElementById("volumeControl");
+    const toggleBtn = document.getElementById("musicToggleBtn");
+
+    toggleBtn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.innerHTML = '<i data-feather="pause"></i>';
+      } else {
+        music.pause();
+        toggleBtn.innerHTML = '<i data-feather="play"></i>';
+      }
+      feather.replace();
+    });
+
+    volumeControl.addEventListener("input", function () {
+      music.volume = this.value;
+    });
+
+    function shareWebsite() {
+      const url = "https://nhatdang-0.github.io/trangchu";
+      navigator.clipboard.writeText(url).then(() => {
+        alert("Đã sao chép liên kết trang web!");
+      });
+    }
+
+    feather.replace();
+  </script>
 </body>
 </html>
