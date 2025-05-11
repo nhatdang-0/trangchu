@@ -101,13 +101,15 @@
     h1 {
       margin-bottom: 10px;
       color: #0066cc;
-      font-size: 24px;
+      font-size: 28px; /* Cỡ chữ lớn hơn */
+      font-weight: bold; /* In đậm */
     }
 
     p {
-      font-size: 18px;
+      font-size: 20px; /* Cỡ chữ lớn hơn */
       color: #555;
       margin-bottom: 20px;
+      font-weight: 500; /* Dày hơn */
     }
 
     .social {
@@ -186,6 +188,32 @@
       90% { opacity: 1; }
       100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
     }
+
+    /* Sửa nút "Chơi game khủng long" */
+    .game-btn {
+      background-color: #4CAF50; /* Màu xanh lá cây tươi sáng */
+      color: white;
+      font-size: 20px; /* Cỡ chữ lớn hơn */
+      padding: 18px 36px;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      margin-top: 20px;
+      font-weight: bold; /* In đậm */
+    }
+
+    .game-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      background-color: #66bb6a; /* Màu sáng hơn khi hover */
+    }
+
+    .game-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -203,10 +231,10 @@
   </button>
 
   <!-- Thẻ nhạc -->
-  <audio id="backgroundMusic" src="https://nhatdang-0.github.io/nhatdang-0.github.io/nhacnen.mp3" autoplay loop></audio>
+  <audio id="backgroundMusic" src="https://nhatdang-0.github.io/nhacnen.mp3" autoplay loop></audio>
 
   <div class="card">
-    <img class="avatar" src="https://nhatdang-0.github.io/nhatdang-0.github.io/avatar.png" alt="Ảnh đại diện">
+    <img class="avatar" src="https://nhatdang-0.github.io/avatar.png" alt="Ảnh đại diện">
     <h1>Xin chào, mình là Nhật Đăng</h1>
     <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
 
@@ -233,10 +261,13 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
       </a>
     </div>
+
+    <!-- Nút chơi game -->
+    <button class="game-btn" onclick="window.location.href='dino.html'">Dino - Nhật Đăng</button>
   </div>
 
   <!-- Toast -->
-  <div class="toast">🎵 Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm!</div>
+  <div class="toast">Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm!</div>
 
   <script>
     const music = document.getElementById("backgroundMusic");
@@ -259,7 +290,7 @@
     });
 
     function shareWebsite() {
-      const url = "https://nhatdang-0.github.io/trangchu";
+      const url = "https://nhatdang-0.github.io";
       navigator.clipboard.writeText(url).then(() => {
         alert("Đã sao chép liên kết trang web!");
       });
