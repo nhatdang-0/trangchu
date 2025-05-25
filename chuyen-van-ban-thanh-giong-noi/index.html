@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chuyển Văn Bản Thành Giọng Nói - Nhật Đăng</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/nhatdang-0/chuyen-van-ban-thanh-giong-noi/refs/heads/main/logo.png" type="image/png">
+  <style>
+    html, body {
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Volume Slider Style - pastel gradient, bo góc mềm, có viền */
+    #volumeControl {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 120px;
+      height: 8px;
+      border: 1px solid #000;
+      border-radius: 10px;
+      background: linear-gradient(to right, #a1c4fd 50%, #fff 50%);
+      outline: none;
+      transition: background 0.3s ease;
+      vertical-align: middle;
+    }
+
+    /* WebKit (Chrome, Safari) */
+    #volumeControl::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #000;
+      margin-top: -1px;  /* chuẩn căn giữa theo chiều dọc */
+      cursor: pointer;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Firefox */
+    #volumeControl::-moz-range-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    /* Firefox track */
+    #volumeControl::-moz-range-track {
+      height: 8px;
+      border-radius: 10px;
+      background: transparent;
+      border: none;
+    }
+
+    /* Optional: Edge/IE (if needed) */
+    #volumeControl::-ms-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    /* Hover/active thumb hiệu ứng nhẹ */
+    #volumeControl::-webkit-slider-thumb:hover,
+    #volumeControl::-moz-range-thumb:hover {
+      transform: scale(1.1);
+    }
+
+    #volumeControl:active::-webkit-slider-thumb,
+    #volumeControl:active::-moz-range-thumb {
+      transform: scale(1.2);
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .scene-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 0 100px;
+      transform: scale(1);
+      transform-origin: top center;
+      transition: transform 0.3s ease;
+    }
+
+    /* Phóng to .scene khi màn hình lớn */
+    @media (min-width: 768px) {
+      .scene-wrapper {
+        transform: scale(1.2);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .scene-wrapper {
+        transform: scale(1.4);
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .scene-wrapper {
+        transform: scale(1.6);
+      }
+    }
+
+    .scene {
+      position: relative;
+      width: 460px;
+      background: #d7f0d9;
+      border-radius: 30px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px 30px 100px 30px;
+    }
+
+    h1 {
+      color: #2b5329;
+      font-weight: 900;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 2px #a4d06f;
+    }
+
+    label {
+      color: #3a6b35;
+      font-size: 15px;
+      font-weight: 600;
+      display: block;
+      margin: 15px 0 8px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 2px solid #89b362;
+      font-size: 16px;
+      outline: none;
+      font-family: system-ui, sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    textarea {
+      height: 140px;
+      resize: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #5a8b28;
+    }
+
+    button {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(90deg, #6a89cc, #f78fb3);
+      border: 1px solid black;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(74, 127, 35, 0.3);
+      font-family: system-ui, sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #5a6bbc, #e66a96);
+    }
+
+    #ttsBtn {
+      display: block;
+      width: 100%;
+      margin: 10px 0 15px;
+    }
+
+    #downloadBtn {
+      display: block;
+      width: 100%;
+    }
+
+    .corner-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 17px;
+    }
+
+    .corner-links a,
+    .corner-links button {
+      font-size: 17px;
+      padding: 10px 16px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #6a89cc, #f78fb3);
+      border: 1px solid black;
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .corner-links a:hover,
+    .corner-links button:hover {
+      background: linear-gradient(90deg, #5a6bbc, #e66a96);
+    }
+
+    .top-left-controls {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #playPauseBtn {
+      background: linear-gradient(90deg, #6a89cc, #f78fb3);
+      border: 1px solid black;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #playPauseBtn:hover {
+      background: linear-gradient(90deg, #5a6bbc, #e66a96);
+    }
+
+    #playIcon {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid white;
+      margin-left: 3px;
+    }
+
+    #pauseIcon {
+      display: none;
+      width: 12px;
+      height: 16px;
+      position: relative;
+    }
+
+    #pauseIcon::before,
+    #pauseIcon::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: white;
+      border-radius: 2px;
+    }
+
+    #pauseIcon::before {
+      left: 0;
+    }
+
+    #pauseIcon::after {
+      right: 0;
+    }
+
+    #volumeControl {
+      width: 100px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    #volumeControl:hover {
+      opacity: 1;
+    }
+
+    .cloud {
+      position: absolute;
+      top: 20px;
+      left: -200px;
+      width: 130px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50px;
+      box-shadow: 30px 0 white, 60px 10px white, 90px 0 white;
+      opacity: 0.85;
+      animation: drift 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(1200px);
+      }
+    }
+
+    footer.footer {
+      text-align: center;
+      color: #2b5329;
+      font-size: 14px;
+      font-weight: 600;
+      user-select: none;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 480px) {
+      .scene-wrapper {
+        padding: 0 10px; /* tạo khoảng cách trái phải */
+        transform: scale(1) !important; /* reset scale nhỏ lại */
+      }
+      .scene {
+        max-width: 90vw;
+        margin: 0 auto; /* căn giữa */
+      }
+    }
+
+    #welcomeMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(247, 143, 179, 0.9); /* màu hồng pastel của trang web có độ trong suốt */
+      padding: 30px 40px;
+      border-radius: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      font-family: system-ui, sans-serif;;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 100000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #welcomeMessage.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    #copyMessage,
+    #copyFailMessage {
+      position: fixed;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(106, 137, 204, 0.9);
+      padding: 20px 30px;
+      border-radius: 18px;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      font-family: system-ui, sans-serif;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 99998;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #copyMessage.show,
+    #copyFailMessage.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1.02);
+    }
+  </style>
+</head>
+<body>
+  <audio id="backgroundAudio" autoplay loop>
+    <source src="https://nhatdang-0.github.io/chuyen-van-ban-thanh-giong-noi/nhacnen.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="top-left-controls">
+    <button id="playPauseBtn" aria-label="Phát/Dừng nhạc">
+      <div id="playIcon"></div>
+      <div id="pauseIcon"></div>
+    </button>
+    <input type="range" min="0" max="1" step="0.01" value="1" id="volumeControl" title="Âm lượng" />
+  </div>
+
+  <div class="scene-wrapper">
+    <div class="scene">
+      <h1>Chuyển Văn Bản Thành Giọng Nói - Nhật Đăng</h1>
+
+      <label for="fileName">Nhập tên file:</label>
+      <input
+        type="text"
+        id="fileName"
+        placeholder="Nhập tên file (không có đuôi)..."
+        disabled
+      />
+      <p style="font-size: 13px; color: gray; font-style: italic; margin-top: 4px; margin-bottom: 12px;">
+        (Chức năng tải âm thanh chưa hỗ trợ nên bạn không cần nhập tên file.)
+      </p>
+      <!-- Code mở khóa ô văn bản:
+      <label for="fileName">Nhập tên file:</label>
+      <input
+        type="text"
+        id="fileName"
+        placeholder="Nhập tên file (không có đuôi)..."
+        style="width: 100%; padding: 12px 14px; font-size: 16px; border-radius: 18px; border: 2px solid #89b362; font-family: 'Comfortaa', cursive, sans-serif;"
+        title="Nhập tên file để tải âm thanh về với tên được nhập"
+      />
+      -->
+      
+      <label for="inputText">Nhập văn bản:</label>
+      <textarea id="inputText" placeholder="Nhập văn bản vào đây..."></textarea>
+
+      <button id="ttsBtn">Chuyển văn bản thành giọng nói</button>
+
+      <!-- Nút tải âm thanh bị khóa với giải thích -->
+      <button id="downloadBtn" disabled
+        style="margin-top: 10px; width: 100%; padding: 12px 16px; font-size: 14px; font-weight: 700; 
+               color: white; background: gray; border: 1px solid black; border-radius: 20px; cursor: not-allowed;"
+        title="Chức năng tạm thời bị khóa">
+        Tải âm thanh (chưa khả dụng)
+      </button>
+      <p style="color: gray; font-size: 14px; margin-top: 8px; font-style: italic;">
+        Chúng tôi chưa hỗ trợ tải âm thanh. Bạn có thể ghi màn hình rồi tách âm thanh ra.<br>
+        Chúng tôi chân thành xin lỗi vì sự bất tiện này!
+      </p>
+      <!-- Code mở khóa nút:
+      <button id="downloadBtn" 
+        style="margin-top: 10px; width: 100%; padding: 12px 16px; font-size: 14px; font-weight: 700; 
+               color: white; background: linear-gradient(90deg, #6a89cc, #f78fb3); border: 1px solid black; 
+               border-radius: 20px; cursor: pointer;"
+        title="Tải âm thanh">
+        Tải âm thanh
+      </button>
+      -->
+
+      <div class="corner-links">
+        <a href="https://nhatdang-0.github.io" target="_blank" aria-label="Trang Chủ">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="white" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          Trang Chủ
+        </a>
+        <button id="shareBtn" aria-label="Chia sẻ">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="white" viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="white" stroke-width="2"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="white" stroke-width="2"/>
+          </svg>
+          Chia sẻ
+        </button>
+      </div>
+
+      <div class="cloud"></div>
+      <footer class="footer">© 2025 ND Co., Ltd. All rights reserved.</footer>
+    </div>
+  </div>
+
+<script>
+  const shareBtn = document.getElementById('shareBtn');
+  const audio = document.getElementById('backgroundAudio');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  const volumeControl = document.getElementById('volumeControl');
+
+  audio.volume = volumeControl.value;
+
+  // Xử lý chuyển văn bản thành giọng nói
+  const ttsBtn = document.getElementById('ttsBtn');
+  const inputText = document.getElementById('inputText');
+  const fileNameInput = document.getElementById('fileName');
+
+  ttsBtn.addEventListener('click', () => {
+    const text = inputText.value.trim();
+    if (!text) {
+      alert("Vui lòng nhập văn bản trước khi chuyển đổi.");
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'vi-VN'; // Ngôn ngữ tiếng Việt
+    speechSynthesis.speak(utterance);
+  });
+
+  // Gán sự kiện play/pause cho nút
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    } else {
+      audio.pause();
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    }
+  });
+
+  // Điều chỉnh âm lượng
+  volumeControl.addEventListener('input', () => {
+    audio.volume = volumeControl.value;
+  });
+
+  // Cho phép phát nhạc sau tương tác đầu tiên
+  document.addEventListener('DOMContentLoaded', () => {
+    const enableAudio = () => {
+      audio.play().then(() => {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      }).catch(() => {
+        // Trình duyệt từ chối autoplay, không cần xử lý gì thêm
+      });
+      document.removeEventListener('click', enableAudio);
+      document.removeEventListener('keydown', enableAudio);
+    };
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('keydown', enableAudio);
+  });
+
+  // Nút chia sẻ
+  shareBtn.addEventListener('click', () => {
+    const text = "Trang web Chuyển Văn Bản Thành Giọng Nói - Nhật Đăng thuộc ND Co., Ltd: https://nhatdang-0.github.io/chuyen-van-ban-thanh-giong-noi\n\nTrang chủ của ND Co., Ltd: https://nhatdang-0.github.io";
+    navigator.clipboard.writeText(text).then(() => {
+      const copyMsg = document.getElementById('copyMessage');
+      copyMsg.classList.add('show');
+      setTimeout(() => {
+        copyMsg.classList.remove('show');
+      }, 3000);
+    }).catch(() => {
+      const failMsg = document.getElementById('copyFailMessage');
+      failMsg.classList.add('show');
+      setTimeout(() => {
+        failMsg.classList.remove('show');
+      }, 3000);
+    });
+  });
+
+  // Hiển thị thông báo chào mừng  giây
+  window.addEventListener('load', () => {
+    const welcome = document.getElementById('welcomeMessage');
+    welcome.style.opacity = '1';
+
+    setTimeout(() => {
+      welcome.style.opacity = '0';
+    }, 5000);
+  });
+
+  function updateVolumeGradient() {
+    const value = volumeControl.value;
+    const min = volumeControl.min || 0;
+    const max = volumeControl.max || 1;
+    const percent = ((value - min) / (max - min)) * 100;
+
+    volumeControl.style.background = `linear-gradient(to right, #a1c4fd 0%, #fbc2eb ${percent}%, #fff ${percent}%, #fff 100%)`;
+  }
+
+  volumeControl.addEventListener('input', () => {
+    audio.volume = volumeControl.value;
+    updateVolumeGradient();
+  });
+
+  updateVolumeGradient(); // Gọi ban đầu để cập nhật giao diện
+</script>
+  <div id="welcomeMessage">
+    ND Co., Ltd cảm ơn bạn đã sử dụng trang web!<br />
+    Trang web có nhạc nền, bạn hãy mở lên và thưởng thức nhé.
+  </div>
+
+  <div id="copyMessage">
+    Đã sao chép nội dung chia sẻ vào bộ nhớ tạm!
+  </div>
+
+  <div id="copyFailMessage">
+    Không thể sao chép. Trình duyệt không hỗ trợ hoặc có lỗi!
+  </div>
+</body>
+</html>
