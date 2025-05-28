@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<link>
+  <meta charset="UTF-8">
+  <title>Chuyển Đổi Định dạng Loại Ảnh - Nhật Đăng</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/nhatdang-0/nhatdang-0.github.io/refs/heads/main/logo.png" type="image/png">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    input, select {
+      margin: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #preview {
+      max-width: 300px;
+      margin-top: 20px;
+      display: none;
+      border: 1px solid #888;
+      border-radius: 5px;
+    }
+    #download {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Chuyển Đổi Định Dạng Ảnh</h1>
+
+  <input type="file" id="upload" accept="image/*">
+  <br>
+  <label for="format">Chọn định dạng đầu ra:</label>
+  <select id="format">
+    <option value="image/png">PNG</option>
+    <option value="image/jpeg">JPG</option>
+    <option value="image/webp">WEBP</option>
+  </select>
+  <br>
+  <img id="preview" alt="Xem trước ảnh">
+  <br>
+  <a id="download" download="converted.png">Tải ảnh đã chuyển</a>
+
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <script>
+    const upload = document.getElementById('upload');
+    const format = document.getElementById('format');
+    const canvas = document.getElementById('canvas');
+    const preview = document.getElementById('preview');
+    const download = document.getElementById('download');
+
+    upload.addEventListener('change', () => {
+      const file = upload.files[0];
+      if (!file || !file.type.startsWith('image/')) {
+        alert('Vui lòng chọn một tệp ảnh.');
+        return;
+      }
+
+      const reader = new FileReader();
+      const img = new Image();
+
+      reader.onload = (e) => {
+        img.src = e.target.result;
+      };
+
+      img.onload = () => {
+        // Vẽ ảnh lên canvas
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        // Hiển thị ảnh gốc
+        preview.src = img.src;
+        preview.style.display = 'block';
+
+        // Chuyển đổi và tạo đường dẫn tải
+        const mimeType = format.value;
+        const ext = mimeType.split('/')[1];
+
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          download.href = url;
+          download.download = `converted.${ext}`;
+          download.style.display = 'inline-block';
+        }, mimeType);
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    format.addEventListener('change', () => {
+      // Nếu người dùng đổi định dạng sau khi đã tải ảnh
+      if (preview.src) {
+        upload.dispatchEvent(new Event('change'));
+      }
+    });
+  </script>
+
+</body>
+</html>
