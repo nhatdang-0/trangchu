@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rút gọn link - Nhật Đăng</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/nhatdang-0/nhatdang-0.github.io/refs/heads/main/logo.png" type="image/png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #c2e9fb, #f9f7f7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Trang rút gọn link</h1>
+  <form id="form">
+    <input type="text" id="code" placeholder="Nhập mã ví dụ: nhatdang-0" required />
+    <button type="submit">Lấy link</button>
+  </form>
+  <div class="result" id="result"></div>
+
+  <script>
+    // Danh sách mã rút gọn
+    const urlMap = {
+      "nhatdang-0": "https://nhatdang-0.github.io",
+      "gg": "https://www.google.com",
+      "fb": "https://facebook.com",
+      "chatgpt": "https://chat.openai.com",
+      "zalo": "https://zalo.me"
+    };
+
+    const path = window.location.pathname.split("/").pop();
+    const codeInput = document.getElementById("code");
+    const form = document.getElementById("form");
+    const result = document.getElementById("result");
+
+    // Nếu có path sau /l/, kiểm tra để chuyển hướng
+    if (path && path !== "index.html") {
+      const target = urlMap[path];
+      if (target) {
+        window.location.href = target;
+      } else {
+        document.body.innerHTML = "<h2>Không tìm thấy liên kết.</h2>";
+      }
+    }
+
+    // Xử lý form nhập mã
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const code = codeInput.value.trim();
+      if (urlMap[code]) {
+        const shortUrl = `${window.location.origin}/l/${code}`;
+        result.innerHTML = `Link rút gọn: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+      } else {
+        result.textContent = "Không tìm thấy mã này.";
+      }
+    });
+  </script>
+</body>
+</html>
