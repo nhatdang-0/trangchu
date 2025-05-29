@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhật Đăng - Trang Chủ</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/nhatdang-0/nhatdang-0.github.io/refs/heads/main/logo.png" type="image/png">
+  <link rel="icon" href="logo.webp" type="image/webp">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* Global Styles */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,6 +21,7 @@
       padding: 20px;
     }
 
+    /* Controls */
     .controls {
       position: fixed;
       top: 15px;
@@ -56,7 +58,7 @@
       cursor: pointer;
     }
 
-    /* Nút chia sẻ */
+    /* Share Button */
     .share-btn {
       position: fixed;
       top: 15px;
@@ -71,7 +73,7 @@
       justify-content: center;
       font-size: 24px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border: none; /* Bỏ viền */
+      border: none;
     }
 
     .share-btn:hover {
@@ -80,6 +82,7 @@
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
+    /* Card */
     .card {
       background: white;
       padding: 40px;
@@ -91,28 +94,32 @@
     }
 
     .avatar {
-      width: 150px;
-      height: 150px;
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      border: 4px solid #0066cc;
     }
 
     h1 {
-      margin-bottom: 10px;
-      color: #0066cc;
-      font-size: 28px; /* Cỡ chữ lớn hơn */
-      font-weight: bold; /* In đậm */
+      margin-bottom: 6px;
+      margin-top: -17px;
+      color: #5271ff;
+      font-size: 35px;
+      font-weight: bold;
+      text-align: center;
     }
 
     p {
-      font-size: 20px; /* Cỡ chữ lớn hơn */
+      font-size: 20px;
       color: #555;
-      margin-bottom: 20px;
-      font-weight: 500; /* Dày hơn */
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 500;
+      text-align: justify;
     }
 
+    /* Social Links */
     .social {
       display: flex;
       gap: 12px;
@@ -169,18 +176,25 @@
       opacity: 1;
     }
 
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 20px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
+      transform: translate(-50%, -50%);
+      background: rgba(0, 102, 204, 0.65);
       color: white;
       padding: 12px 20px;
       border-radius: 8px;
       font-size: 14px;
+      font-weight: 600;
       animation: fadeInOut 5s ease;
       z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: blur(2px);
     }
 
     @keyframes fadeInOut {
@@ -190,25 +204,25 @@
       100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
     }
 
-    /* Sửa nút "Chơi game khủng long" */
+    /* Game Button */
     .game-btn {
-      background-color: #4CAF50; /* Màu xanh lá cây tươi sáng */
+      background-color: #34c759;
       color: white;
-      font-size: 20px; /* Cỡ chữ lớn hơn */
+      font-size: 20px;
       padding: 18px 36px;
-      border-radius: 12px;
+      border-radius: 999px;
       border: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
       margin-top: 20px;
-      font-weight: bold; /* In đậm */
+      font-weight: bold;
     }
 
     .game-btn:hover {
       transform: translateY(-5px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      background-color: #66bb6a; /* Màu sáng hơn khi hover */
+      background-color: #66bb6a;
     }
 
     .game-btn:active {
@@ -218,7 +232,7 @@
   </style>
 </head>
 <body>
-  <!-- Nhạc + âm lượng -->
+  <!-- Music Controls -->
   <div class="controls">
     <button class="icon-btn" id="musicToggleBtn" title="Bật/Tắt nhạc">
       <i data-feather="play"></i>
@@ -226,19 +240,21 @@
     <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" title="Âm lượng" />
   </div>
 
-  <!-- Nút chia sẻ ở góc phải -->
+  <!-- Share Button -->
   <button class="share-btn" onclick="shareWebsite()" title="Chia sẻ">
     <i data-feather="share-2"></i>
   </button>
 
-  <!-- Thẻ nhạc -->
-  <audio id="backgroundMusic" src="https://nhatdang-0.github.io/nhacnen.mp3" autoplay loop></audio>
+  <!-- Background Music -->
+  <audio id="backgroundMusic" src="nhacnen.mp3" autoplay loop></audio>
 
+  <!-- Card Content -->
   <div class="card">
-    <img class="avatar" src="https://nhatdang-0.github.io/avatar.png" alt="Ảnh đại diện">
-    <h1>Xin chào, mình là Nhật Đăng</h1>
-    <p>Đây là trang web cá nhân của mình. Mình đam mê công nghệ, học hỏi và chia sẻ.</p>
+    <img class="avatar" src="avatar.png" alt="Ảnh đại diện">
+    <h1>ND CO., LTD</h1>
+    <p>Chào mừng đến với ND Co., Ltd – được phát triển bởi Nhật Đăng. Tại đây, chúng tôi cung cấp các dịch vụ hoàn toàn miễn phí. Chúc bạn có trải nghiệm thật vui vẻ khi sử dụng dịch vụ. ND Co., Ltd trân trọng cảm ơn!</p>
 
+    <!-- Social Links -->
     <div class="social">
       <a href="https://facebook.com/chaunhatdang.nd" class="facebook" target="_blank" data-tooltip="Facebook">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
@@ -259,16 +275,16 @@
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Email">
       </a>
       <a href="https://zalo.me/0379065349" class="zalo" target="_blank" data-tooltip="Zalo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/zalo.svg" alt="Zalo">
       </a>
     </div>
 
-    <!-- Nút chơi game -->
-    <button class="game-btn" onclick="window.location.href='https://nhatdang-0.github.io/dino'">Dino - Nhật Đăng</button>
+    <!-- Game Button -->
+    <button class="game-btn" onclick="window.open('dino', '_blank')">Dino - Nhật Đăng</button>
   </div>
 
-  <!-- Toast -->
-  <div class="toast">Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm!</div>
+  <!-- Toast Notification -->
+  <div class="toast">Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm và ủng hộ chúng tôi!</div>
 
   <script>
     const music = document.getElementById("backgroundMusic");
@@ -291,11 +307,29 @@
     });
 
     function shareWebsite() {
-      const url = "https://nhatdang-0.github.io";
-      navigator.clipboard.writeText(url).then(() => {
-        alert("Đã sao chép liên kết trang web!");
+      const textToCopy = "Trang chủ của ND Co., Ltd: https://nhatdang-0.github.io";
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.textContent = "Đã sao chép liên kết vào bộ nhớ tạm!";
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.remove();
+        }, 5000);
       });
     }
+
+    window.addEventListener("load", () => {
+      toggleBtn.innerHTML = music.paused
+        ? '<i data-feather="play"></i>'
+        : '<i data-feather="pause"></i>';
+      feather.replace();
+    });
+
+    setTimeout(() => {
+      document.querySelector(".toast").style.display = "none";
+    }, 5000);
 
     feather.replace();
   </script>
