@@ -4,14 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhật Đăng - Trang Chủ</title>
-  <link rel="icon" href="logo.webp" type="image/webp">
+  <link rel="icon" href="/logo.png" type="image/png">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    html, body {
+      overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     /* Global Styles */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #d1e8ff, #fefefe);
+      background-attachment: fixed; /* GIỮ NỀN CỐ ĐỊNH */
+      background-repeat: no-repeat;
+      background-size: cover;
       color: #333;
       display: flex;
       flex-direction: column;
@@ -19,7 +33,9 @@
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
+      overflow-x: hidden;
     }
+
 
     /* Controls */
     .controls {
@@ -86,6 +102,7 @@
     .card {
       background: white;
       padding: 40px;
+      padding-inline: 20px; /* THÊM DÒNG NÀY */
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -205,29 +222,79 @@
     }
 
     /* Game Button */
-    .game-btn {
-      background-color: #34c759;
+    .btn {
+      width: 100%; /* Chiếm toàn bộ chiều ngang khung chứa */
+      max-width: 500px; /* Giới hạn tối đa chiều rộng nếu khung lớn */
+      min-width: 280px;
+      margin: 20px auto; /* Căn giữa theo chiều ngang */
+    
       color: white;
       font-size: 20px;
       padding: 18px 36px;
-      border-radius: 999px;
+      border-radius: 50vw;
       border: none;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      margin-top: 20px;
       font-weight: bold;
+      text-align: center;
+      display: block; /* Đảm bảo chiếm nguyên dòng và căn giữa */
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Game Button */
+    .game-btn {
+      background-color: #3f9343; /* Màu xanh lá cây */
     }
 
     .game-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      background-color: #66bb6a;
+      background-color: #66bb6a ; /* Màu xanh lá cây nhạt hơn khi hover */
     }
 
-    .game-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* TTS Button */
+    .tts-btn {
+      background: linear-gradient(90deg, #496bb4, #d55884); /* Gradient pastel xanh dương → hồng */
+    }
+
+    .tts-btn:hover {
+      background: linear-gradient(90deg, #6a89cc, #e65b8c); /* Nhạt hơn khi hover */
+    }
+
+    /* dinhdanganh Button */
+    .dinhdanganh-btn {
+      background: linear-gradient(90deg, #d55884, #496bb4); /* Gradient pastel xanh dương → hồng */
+    }
+
+    .dinhdanganh-btn:hover {
+      background: linear-gradient(90deg, #f78fb3, #6a89cc); /* Nhạt hơn khi hover */
+    }
+
+    /* nen-gradient-pastel Button */
+    .maunen-btn {
+      background: linear-gradient(to right, #f5bd6f, #f677d0); /* Gradient pastel từ vàng nhạt sang hồng nhạt */
+    }
+
+    .maunen-btn:hover {
+      background: linear-gradient(to right, #fcd7a3, #fbc2eb); /* Nhạt hơn khi hover */
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: auto; /* Đẩy footer xuống đáy khung */
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      color: #4c4c4c;
+      background: transparent; /* hoặc pastel nhẹ nếu bạn muốn */
     }
   </style>
 </head>
@@ -246,11 +313,11 @@
   </button>
 
   <!-- Background Music -->
-  <audio id="backgroundMusic" src="nhacnen.mp3" autoplay loop></audio>
+  <audio id="backgroundMusic" src="/nhacnen.mp3" autoplay loop></audio>
 
   <!-- Card Content -->
   <div class="card">
-    <img class="avatar" src="avatar.png" alt="Ảnh đại diện">
+    <img class="avatar" src="/avatar.png" alt="Ảnh đại diện">
     <h1>ND CO., LTD</h1>
     <p>Chào mừng đến với ND Co., Ltd – được phát triển bởi Nhật Đăng. Tại đây, chúng tôi cung cấp các dịch vụ hoàn toàn miễn phí. Chúc bạn có trải nghiệm thật vui vẻ khi sử dụng dịch vụ. ND Co., Ltd trân trọng cảm ơn!</p>
 
@@ -280,7 +347,19 @@
     </div>
 
     <!-- Game Button -->
-    <button class="game-btn" onclick="window.open('dino', '_blank')">Dino - Nhật Đăng</button>
+    <button class="btn game-btn" onclick="window.open('/dino', '_blank')">Dino - Nhật Đăng </button>
+
+    <!-- TTS Button -->
+    <button class="btn tts-btn" onclick="window.open('/tts', '_blank')">Chuyển Văn Bản Thành Giọng Nói - Nhật Đăng</button>
+
+    <!-- dinhdanganh Buton -->
+    <button class="btn dinhdanganh-btn" onclick="window.open('/chuyen-doi-dinh-dang-loai-anh', '_blank')">Chuyển Đổi Định Dạng Loại Ảnh - Nhật Đăng</button>
+
+    <!-- nen-gradient-pastel Button -->
+    <button class="btn maunen-btn" onclick="window.open('/nen-gradient-pastel', '_blank')">Nền Gradient Pastel - Nhật Đăng</button>
+<!-- Nút mẫu
+    <button class="tennut-btn" onclick="window.open('nơi chuyển tới (web; thư mục;...)', '_blank')">Tên nút</button>
+-->
   </div>
 
   <!-- Toast Notification -->
@@ -333,5 +412,9 @@
 
     feather.replace();
   </script>
+
+  <footer class="footer">
+    © 2025 ND Co., Ltd. All rights reserved.
+  </footer>
 </body>
 </html>
