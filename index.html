@@ -10,7 +10,7 @@
     html, body {
       overflow-x: hidden; /* Ẩn thanh cuộn ngang */
       margin: 0;
-      padding: 0;
+      padding: 10px;
       font-family: system-ui, sans-serif;
     }
 
@@ -20,8 +20,6 @@
 
     /* Global Styles */
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #d1e8ff, #fefefe);
       background-attachment: fixed; /* GIỮ NỀN CỐ ĐỊNH */
       background-repeat: no-repeat;
@@ -32,10 +30,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
     }
-
 
     /* Controls */
     .controls {
@@ -102,12 +97,13 @@
     .card {
       background: white;
       padding: 40px;
-      padding-inline: 20px; /* THÊM DÒNG NÀY */
+      padding-inline: 20px;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 500px;
       width: 100%;
+      margin-bottom: 40px; /* Thêm dòng này */
     }
 
     .avatar {
@@ -196,9 +192,7 @@
     /* Toast */
     .toast {
       position: fixed;
-      top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       background: rgba(0, 102, 204, 0.65);
       color: white;
       padding: 12px 20px;
@@ -213,6 +207,17 @@
       text-align: center;
       backdrop-filter: blur(2px);
     }
+    /* Toast - Welcome */
+    .toast.toast-welcome {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Toast -Share */
+    .toast.share {
+      bottom: 20px;
+      transform: translateX(-50%);
+    }
 
     @keyframes fadeInOut {
       0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
@@ -221,13 +226,12 @@
       100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
     }
 
-    /* Game Button */
+    /* Buttons */
     .btn {
       width: 100%; /* Chiếm toàn bộ chiều ngang khung chứa */
       max-width: 500px; /* Giới hạn tối đa chiều rộng nếu khung lớn */
       min-width: 280px;
-      margin: 20px auto; /* Căn giữa theo chiều ngang */
-    
+      margin: 10px auto; /* Điều chỉnh khoảng cách đều hơn */
       color: white;
       font-size: 20px;
       padding: 18px 36px;
@@ -251,50 +255,50 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Game Button */
     .game-btn {
-      background-color: #3f9343; /* Màu xanh lá cây */
+      background: linear-gradient(135deg, #4caf50, #ffeb3b); /* Gradient xanh lá cây tươi và vàng nhạt */
     }
 
     .game-btn:hover {
-      background-color: #66bb6a ; /* Màu xanh lá cây nhạt hơn khi hover */
+      background: linear-gradient(135deg, #66bb6a, #fff176); /* Sáng hơn khi hover */
     }
 
-    /* TTS Button */
     .tts-btn {
-      background: linear-gradient(90deg, #496bb4, #d55884); /* Gradient pastel xanh dương → hồng */
+      background: linear-gradient(135deg, #2196f3, #ff7043); /* Gradient xanh dương tươi và cam sáng */
     }
 
     .tts-btn:hover {
-      background: linear-gradient(90deg, #6a89cc, #e65b8c); /* Nhạt hơn khi hover */
+      background: linear-gradient(135deg, #42a5f5, #ff8a65); /* Sáng hơn khi hover */
     }
 
-    /* dinhdanganh Button */
     .dinhdanganh-btn {
-      background: linear-gradient(90deg, #d55884, #496bb4); /* Gradient pastel xanh dương → hồng */
+      background: linear-gradient(135deg, #ff5252, #40e0d0); /* Gradient đỏ tươi và xanh ngọc sáng */
     }
 
     .dinhdanganh-btn:hover {
-      background: linear-gradient(90deg, #f78fb3, #6a89cc); /* Nhạt hơn khi hover */
+      background: linear-gradient(135deg, #ff867f, #5ef5e0); /* Sáng hơn khi hover */
     }
 
-    /* nen-gradient-pastel Button */
     .maunen-btn {
-      background: linear-gradient(to right, #f5bd6f, #f677d0); /* Gradient pastel từ vàng nhạt sang hồng nhạt */
+      background: linear-gradient(135deg, #ff80ab, #9370db); /* Gradient hồng tươi và tím pastel */
     }
 
     .maunen-btn:hover {
-      background: linear-gradient(to right, #fcd7a3, #fbc2eb); /* Nhạt hơn khi hover */
+      background: linear-gradient(135deg, #ff99bb, #b39ddb); /* Sáng hơn khi hover */
     }
 
     /* Footer */
     .footer {
-      margin-top: auto; /* Đẩy footer xuống đáy khung */
+      margin-top: -20px; /* Giảm khoảng cách với nội dung phía trên */
+      padding: 10px; /* Giảm khoảng cách bên trong */
+      font-size: 16px; /* Kích thước chữ giữ nguyên */
+      color: #ffffff; /* Màu chữ trắng */
       text-align: center;
-      padding: 20px;
-      font-size: 16px;
-      color: #4c4c4c;
-      background: transparent; /* hoặc pastel nhẹ nếu bạn muốn */
+      background: linear-gradient(135deg, #0066cc, #004999); /* Gradient xanh dương đậm */
+      border-radius: 10px; /* Bo góc nhẹ */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+      max-width: 100%; /* Đảm bảo chiều rộng tối đa */
+      position: relative; /* Đặt vị trí tương đối để tránh lỗi bố cục */
     }
   </style>
 </head>
@@ -363,7 +367,7 @@
   </div>
 
   <!-- Toast Notification -->
-  <div class="toast">Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm và ủng hộ chúng tôi!</div>
+  <div class="toast toast-welcome">Trang web có nhạc nền. Cảm ơn bạn đã ghé thăm và ủng hộ chúng tôi!</div>
 
   <script>
     const music = document.getElementById("backgroundMusic");
@@ -412,7 +416,6 @@
 
     feather.replace();
   </script>
-
   <footer class="footer">
     © 2025 ND Co., Ltd. All rights reserved.
   </footer>
